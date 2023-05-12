@@ -24,6 +24,8 @@ AUTH_USER_MODEL = 'authentication.MyUser'
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
+print(SECRET_KEY)
 SECRET_KEY = 'django-insecure-(oawz_u7jb-nih7og2v&rd7=#ag#*&if1xcs@7t_2tmk-1^&#y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -33,7 +35,7 @@ DEBUG = True
 
 # print(public_url)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -122,23 +124,29 @@ LOGIN_REDIRECT_URL = 'home'
 # }
 SITE_URL = 'example.com:8000/'
 
-# fb = '656446109575419'
-# fb_secret = '0b1a4216153139aabcfc27b3aa8e17b3'
+
 SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.8'
-SOCIAL_AUTH_FACEBOOK_KEY = '656446109575419'
-SOCIAL_AUTH_FACEBOOK_SECRET = '0b1a4216153139aabcfc27b3aa8e17b3'
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '420280853316-f9rrt3787bvtpuorgehqra0tksh6fqsd.apps.googleusercontent.com' # Google Consumer Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' # Google Consumer Secre
 
 
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+
+
+print(os.environ.get('DBNAME'))
+
+print(os.environ.get('DB_USER'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mictovic',
-        'USER': 'postgres',
-        'PASSWORD': 'awa',
+        'NAME': os.environ.get('DBNAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
@@ -154,8 +162,15 @@ CHANNEL_LAYERS = {
 }
 
 
-GOOGLE_CLIENT_ID = '420280853316-f9rrt3787bvtpuorgehqra0tksh6fqsd.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+
+
+GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET ')
+
+
+
+#GOOGLE_CLIENT_ID = '420280853316-f9rrt3787bvtpuorgehqra0tksh6fqsd.apps.googleusercontent.com'
+#GOOGLE_CLIENT_SECRET = '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'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -192,10 +207,10 @@ if not DEBUG:
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = '587'
     EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = 'awaemekamichael@gmail.com'
-    EMAIL_HOST_PASSWORD = 'hiowacrdnvgvpnpn'
-    DEFAULT_FROM_USER = 'awaemekamichael@gmail.com'
-    SERVER_EMAIL = 'awaemekamichael@gmail.com'
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+    DEFAULT_FROM_USER = os.environ.get('EMAIL_HOST_USER')
+    SERVER_EMAIL = os.environ.get('EMAIL_HOST_USER')
     BASE_URL = settings.SITE_URL
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -219,5 +234,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+print(BASE_DIR)
 #python manage.py runserver --port 8000 --noreload --nothreading --no-ipv6 --noreload --asgi mictovic.asgi:application
