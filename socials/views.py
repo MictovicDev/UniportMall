@@ -158,10 +158,11 @@ def check(request):
 class PostView(View):
     def get(self, request):
         request.session['posts'] = ''
-        save_page =  request.session['page'] = 1
-        page = check(request)
-        if page == 1:
-            posts = pagination_handler()[0]
+        posts = Post.objects.all()
+        # save_page =  request.session['page'] = 1
+        # page = check(request)
+        # if page == 1:
+            
        # print(posts)
        
         context = {
