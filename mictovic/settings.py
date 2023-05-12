@@ -144,11 +144,11 @@ print(os.environ.get('DB_USER'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DBNAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'dTE5ER9IWFPGDRk4wG5l',
+        'HOST': 'containers-us-west-53.railway.app',
+        'PORT': '6789'
     }
 }
 
