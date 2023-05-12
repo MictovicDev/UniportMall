@@ -1,0 +1,71 @@
+
+.comment-form {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #f9f9f9;
+    padding: 5px;
+    border: 1px solid #ccc;
+    display: none;
+    box-sizing: border-box;
+    max-height: 0;
+    overflow: hidden;
+    transition: all .5s ease;
+}
+.comment-form.is-open {
+    display: block;
+    max-height: 500px;
+}
+.comment-form textarea {
+    width: 100%;
+    height: 40px;
+    resize: none;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    padding: 5px 35px 5px 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 14px;
+    position: relative;
+    transition: all .5s ease;
+}
+.comment-form textarea:focus {
+    padding-right: 70px;
+}
+.comment-form textarea::placeholder::after {
+    content: "\2192";
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    display: none;
+    transition: all .5s ease;
+}
+.comment-form textarea:focus::placeholder::after {
+    display: block;
+}
+.comment-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    transition: all .5s ease;
+}
+.comment-form textarea:focus + .submit {
+    right: 40px;
+}
+@media (max-width: 768px) {
+    .comment-form textarea {
+        height: 35px;
+    }
+}

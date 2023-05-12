@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.comment-section {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			border: 1px solid #ccc;
+			background-color: #f9f9f9;
+			box-shadow: 0px 0px 10px #ccc;
+		}
+		
+		.comment {
+			margin-bottom: 20px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			background-color: #fff;
+			box-shadow: 0px 0px 5px #ccc;
+		}
+		
+		.comment .author {
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+		
+		.comment .date {
+			font-size: 12px;
+			color: #777;
+			margin-bottom: 5px;
+		}
+		
+		.comment .message {
+			margin-bottom: 5px;
+		}
+		
+		.comment-form {
+			margin-top: 20px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			background-color: #fff;
+			box-shadow: 0px 0px 5px #ccc;
+		}
+		
+		.comment-form label {
+			display: block;
+			margin-bottom: 5px;
+		}
+		
+		.comment-form input[type="text"], .comment-form textarea {
+			width: 100%;
+			padding: 5px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			margin-bottom: 10px;
+			box-sizing: border-box;
+		}
+		
+		.comment-form button {
+			background-color: #4c4eaf;
+			color: #fff;
+			border: none;
+			padding: 10px;
+			border-radius: 3px;
+			cursor: pointer;
+			width: 100%;
+			font-size: 16px;
+			font-weight: bold;
+			box-sizing: border-box;
+		}
+		
+		@media screen and (max-width: 600px) {
+			.comment-section {
+				padding: 10px;
+			}
+			
+			.comment {
+				padding: 5px;
+			}
+			
+			.comment-form {
+				padding: 5px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="comment-section">
+		<div class="comment">
+			<div class="author">John Doe</div>
+			<div class="date">May 1, 2023</div>
+			<div class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam euismod euismod velit, eget bibendum nisi semper vel. Nulla aliquam felis vitae dui consectetur, id varius magna congue. </div>
+		</div>
+		
+		<div class="comment">
+			<div class="author">Jane Smith</div>
+			<div class="date">May 2, 2023</div>
+			<div class="message">Sed vestibulum, urna ut placerat fringilla, nulla augue hendrerit elit, ac sollicitudin eros tellus vel augue.</div>
+		</div>
+		
+		<div class="comment-form">
+			<form>
+				<label for="name">Comment:</label>
+				<input type="text" id="name" name="text">
+				<div>
+					<button class="button" id="sendEmail">Comment <i class="fa fa-arrow-circle-right"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>

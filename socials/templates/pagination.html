@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Pagination Page</title>
+    <style>
+      .pagination {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+      }
+      .pagination li {
+        margin: 0 5px;
+      }
+      .pagination li a {
+        display: block;
+        padding: 5px 10px;
+        background-color: #eee;
+        border-radius: 5px;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s ease-in-out;
+      }
+      .pagination li a:hover {
+        background-color: #ddd;
+      }
+      .pagination li.active a {
+        background-color: #007bff;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>My Pagination Page</h1>
+      <ul class="pagination">
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li class="active"><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+      </ul>
+    </div>
+  </body>
+</html>

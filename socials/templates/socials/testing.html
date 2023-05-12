@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comment Form Example</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.post {
+			border: 1px solid #ccc;
+			padding: 10px;
+			margin-bottom: 20px;
+			position: relative;
+		}
+		.post .content {
+			margin-bottom: 10px;
+		}
+		.post .comment-btn {
+			display: inline-block;
+			margin-top: 10px;
+			background-color: #007bff;
+			color: #fff;
+			padding: 5px 10px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		.post .comment-form {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			background-color: #f9f9f9;
+			padding: 5px;
+			border: 1px solid #ccc;
+			display: none;
+			box-sizing: border-box;
+			max-height: 0;
+			overflow: hidden;
+			transition: all .5s ease;
+		}
+		.post .comment-form.is-open {
+			display: block;
+			max-height: 500px;
+		}
+		.post .comment-form textarea {
+			width: 40%;
+			height: 50px;
+			resize: none;
+			margin-bottom: 5px;
+			border: 1px solid #ccc;
+			padding: 5px 35px 5px 10px;
+			box-sizing: border-box;
+			border-radius: 5px;
+			font-size: 14px;
+			position: relative;
+			transition: all .5s ease;
+		}
+		.post .comment-form textarea:focus {
+			padding-right: 70px;
+		}
+		.post .comment-form textarea::placeholder::after {
+			content: "\2192";
+			font-size: 16px;
+			position: absolute;
+			top: 50%;
+			right: 40px;
+			transform: translateY(-50%);
+			display: none;
+			transition: all .5s ease;
+		}
+		.post .comment-form textarea:focus::placeholder::after {
+			display: block;
+		}
+		.post .comment-form .submit {
+			display: inline-block;
+			background-color: #007bff;
+			color: #fff;
+			padding: 5px 10px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 14px;
+			position: absolute;
+			top: 50%;
+			right: 5px;
+			transform: translateY(-50%);
+			transition: all .5s ease;
+		}
+		.post .comment-form textarea:focus + .submit {
+			right: 40px;
+		}
+		@media (max-width: 768px) {
+			.post .comment-form textarea {
+				height: 100px;
+			}
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			var commentButtons = document.getElementsByClassName("comment-btn");
+			for (var i = 0; i < commentButtons.length; i++) {
+				commentButtons[i].onclick = function() {
+					console.log(this)
+					var commentForm = this.parentNode.querySelector(".comment-form");
+					if (commentForm.classList.contains("is-open")) {
+						commentForm.classList.remove("is-open");
+					} else {
+						commentForm.classList.add("is-open")}
+					}}}
+	</script>
+
+
+</head>
+<body>
+	<div class="post">
+		<p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id felis nec eros inter></p>
+		<div class="comment-btn">Comment</div>
+		<form class="comment-form">
+			<textarea placeholder="Write a comment"></textarea>
+			<button type="submit" class="comment-btn">submit</button>
+		</form>
+			
+</body>
+
+
+
+
