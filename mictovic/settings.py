@@ -141,26 +141,26 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SEC
 print(os.environ.get('DBNAME'))
 
 print(os.environ.get('DB_USER'))
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',
-#         'USER': 'postgres',
-#         'PASSWORD': 'dTE5ER9IWFPGDRk4wG5l',
-#         'HOST': 'containers-us-west-53.railway.app',
-#         'PORT': '6789'
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mictovic',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'awa',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
+        'PASSWORD': 'dTE5ER9IWFPGDRk4wG5l',
+        'HOST': 'containers-us-west-53.railway.app',
+        'PORT': '6789'
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mictovic',
+#         'USER': 'postgres',
+#         'PASSWORD': 'awa',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432'
+#     }
+# }
 
 CHANNEL_LAYERS = {
     'default':{
