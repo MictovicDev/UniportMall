@@ -169,7 +169,7 @@
             <div id="like" class="button-container">
                 <button onclick="inc_like(id)" id={{post.id}} class="like-button"><i class="far fa-thumbs-up"></i><span class="like-count">{{post.likes}}</span> Like</button>
                 <button type="comment" onclick="comment(id)" id={{post.id}} class="comment-button"><i class="far fa-comment-alt"></i><span class="comment-count">8</span>  Comment</button>
-                <a href="{%url 'details' post.id%}"><button id="{{post.id}}" class="share-button"><i class="fa fa-dashboard" ></i>Share</button></a>
+                <a href="{%url 'productdetails' post.id%}"><button id="{{post.id}}" class="share-button"><i class="fa fa-dashboard" ></i>View Product</button></a>
             </div>
         </div>
         <div class="comment-section">
@@ -181,7 +181,7 @@
             </div>
             {%endfor%}
             <div>
-                <form action="{%url 'details' post.id%}"" method="post">
+                <form action="{%url 'postdetails' post.id%}" method="post">
                     {%csrf_token%}
                     <label for="name"> Comment here:</label>
                     <div>

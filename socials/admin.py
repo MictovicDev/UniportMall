@@ -9,8 +9,11 @@ class PostImageInLine(admin.TabularInline):
 class PostCommentInline(admin.TabularInline):
     model = Comment
 
+class PostProductInLine(admin.TabularInline):
+    model = Product
+
 class PostAdmin(admin.ModelAdmin):
-    inlines = [PostImageInLine, PostCommentInline]
+    inlines = [PostImageInLine, PostCommentInline,PostProductInLine]
 
 
 

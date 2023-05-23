@@ -56,7 +56,32 @@
     <![endif]-->
   </head>
   <body>
+ 
+  
   <style>
+        .image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    }
+
+    .image-grid img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    }
+
+    @media (max-width: 768px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    }
+
+    @media (max-width: 480px) {
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+}
     .grid-container{
        width: 100%;
        height: 100%;
@@ -586,7 +611,7 @@ color: #fff;
       <section  id="section" class="col-lg-7 connectedSortable">
       {%for post in posts%}
       <a>
-        <div id="post"  new_id="{{post.id}}" style="border-top: solid 2px darkgray; border-bottom:solid 2px darkgray; margin-top: 10px; " class="box box-success;">
+        <div id="post"  new_id="{{post.id}}" style="border-top: solid 2px darkgray; border-bottom:solid 2px darkgray; margin-top: 30px; " class="box box-success;">
           <h2 id="title" style="padding-left: 20px; margin-bottom: 30px;"class="most_text">{{post.title}}</h2>
           <p id="owner"  style="padding-left: 20px; padding-bottom: 20px;"class="post_text">Merchant : {{post.owner.username}}</p>
           <p id="content" type="content" style="padding-left: 20px;" class="lorem_text">{{post.content}}</p>
@@ -598,11 +623,24 @@ color: #fff;
             {%endfor%}
           </div>
         <div id="like" class="button-container">
+          {%if post.like.count <= 1%}
           <button onclick="inc_like(id)" id={{post.id}} class="like-button"><i class="far fa-thumbs-up"></i><span class="like-count">{{post.likes}}</span> Like</button>
-          <button type="comment" onclick="comment(id)" id={{post.id}} class="comment-button"><i class="far fa-comment-alt"></i><span class="comment-count">8</span>  Comment</button>
-          <a href="{%url 'details' post.id%}"><button id="{{post.id}}" class="share-button"><i class="fa fa-dashboard" ></i>Share</button></a>
-          
+          {%else%}
+          <button onclick="inc_like(id)" id={{post.id}} class="like-button"><i class="far fa-thumbs-up"></i><span class="like-count">{{post.likes}}</span> Likes</button>
+          {%endif%}
+          {%if post.comment.count <= 1%}
+          <a href="{%url 'postdetails' post.id %}"><button type="comment"  id={{post.id}} class="comment-button"><i class="far fa-comment-alt"></i><span class="comment-count">{{post.comment.count}}</span> Comment</button></a>
+          {%else%}
+          <a href="{%url 'postdetails' post.id %}"><button type="comment"  id={{post.id}} class="comment-button"><i class="far fa-comment-alt"></i><span class="comment-count">{{post.comment.count}}</span> Comments</button></a>
+          {%endif%}
+          <a href="{%url 'productdetails' post.product.id %}"><button id="{{post.id}}" class="share-button"><i class="fa fa-dashboard" ></i>View Product</button></a>
+          <a><button id="{{post.id}}" class="share-button"><i class="fa fa-dashboard" ></i>Share</button></a> 
         </div>
+          <form id="post-form" name="{{post.id}}" method="post" class="comment-form">
+            {%csrf_token%}
+            <textarea name="text"  placeholder="Write a comment"></textarea>
+            <button id={{post.id}} type="submit" class="comment-btn">submit</button>
+          </form>   
     </div>
       </a>
 

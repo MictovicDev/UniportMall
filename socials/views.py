@@ -33,15 +33,25 @@ class AjaxPost(View):
 class ProductView(View):
     def post(self, request):
         images = request.FILES.getlist('images')
+        three_images = images[0:3]
         image = images[0]
         details = request.POST.get('text')
         price = request.POST.get('price')
         title = request.POST.get('name')
+
+        post = Post.objects.create(title=title,
+        owner=request.user,
+        content=details)
+
+        for image in three_images:
+            PostImage.objects.create(post=post, image=image)
+
         product = Product.objects.create(merchant=request.user,
          title=title,
          price=price,
          image=image,
-         details=details)
+         details=details,
+         post=post)
 
         return redirect('market')
 
@@ -60,75 +70,8 @@ class ProductView(View):
 class LivePost(View):
     def post(self, request):
         data = json.loads(request.body)
-        try:
-            if data['page'] == 'Next':
-                request.session['page'] = request.session['page'] + 1
-                print(request.session.get('page'))
-                posts = pagination_handler()[request.session['page']-1]
-                post_list = []
-                post = Post.objects.all()
-                for post in posts:
-                    post_list.append({
-                    'id': post.id,
-                    'title': post.title,
-                    'username': post.owner.username,
-                    'content': post.content,
-                    'likes': post.likes,
-                    # 'comments': [for comment in post.comment.all()]
-                    'post_image': [image.thumbnail.url for image in post.post_images.all()]
-                    })
-                request.session['posts'] = post_list
-                return JsonResponse(post_list, safe=False)
-        except KeyError:
-            if request.session.get('posts'):
-                post_list = request.session.get('posts')
-                print(post_list)
-                return JsonResponse(post_list, safe=False)
-            else:
-                post_list = []
-                posts = pagination_handler()[0]
-                #posts = Post.objects.all()
-                for post in posts:
-                    post_list.append({
-                    'id': post.id,
-                    'title': post.title,
-                    'username': post.owner.username,
-                    'content': post.content,
-                    'likes': post.likes,
-                    # 'comments': [for comment in post.comment.all()]
-                    'post_image': [image.thumbnail.url for image in post.post_images.all()]
-                    })
-                return JsonResponse(post_list, safe=False)
+        print(data)
         return JsonResponse({'content': 'done'})
-
-def Pagination(request):
-    data = json.loads(request.body)
-    print(request.session.get('page'))
-    if data['page'] == 'Previous':
-        if request.session.get('page') != 1:
-            request.session[page] -= 1
-        else:
-            page = pagination_handler()[0]
-            return JsonResponse({'page': page})
-    else:
-        request.session['page'] = request.session['page'] + 1
-        print(request.session.get('page'))
-        posts = pagination_handler()[request.session['page']-1]
-        post_list = []
-        for post in posts:
-            post_list.append({
-            'id': post.id,
-            'title': post.title,
-            'username': post.owner.username,
-            'content': post.content,
-            'likes': post.likes,
-            # 'comments': [for comment in post.comment.all()]
-            'post_image': [image.thumbnail.url for image in post.post_images.all()]
-            })
-        print(posts)
-        return JsonResponse(post_list,safe=False)
-
-    return JsonResponse({'content': 'Gottten'}) 
 
 class ImagePost(View):
     def get(self, request):
@@ -157,18 +100,29 @@ def check(request):
 
 class PostView(View):
     def get(self, request):
-        request.session['posts'] = ''
         posts = Post.objects.all()
-        # save_page =  request.session['page'] = 1
-        # page = check(request)
-        # if page == 1:
-            
-       # print(posts)
-       
         context = {
             'posts' : posts
         }
+    
         return render(request, 'socials/home.html',context)
+    
+    def post(self, request):
+        posts = Post.objects.all()
+        data = json.loads(request.body)
+        id = data.get('id')
+        post = Post.objects.get(id=id)
+        text = data.get('text')
+        comment = Comment.objects.create(post=post, 
+        owner=request.user,
+        comment=text)
+        comment.save()
+        context = {
+            'posts' : posts
+        }
+        if request.method = AjaxPost
+        
+        return render(request,'socials/home.html',context)
 
 
 
@@ -180,20 +134,27 @@ class IncrementLikeView(View):
         data = json.loads(request.body)
         post_id = data.get('id')
         post = Post.objects.get(id=post_id)
-        post.likes += 1
-        post.save()
-        return JsonResponse({'content': 'like added succesfully'}, status=200)
+        try:
+            like = Like.objects.get(post=post, user=request.user)
+            if like:
+                post.likes -= 1
+                like.delete()
+                post.save()
+        except:
+            like = Like.objects.create(post=post, user=request.user)
+            post.likes += 1
+            post.save()
+        return JsonResponse({'content': 'like added succesfully','likes': post.likes}, status=200)
 
 
 
-def details(request,pk):
+def postdetails(request,pk):
     post = Post.objects.get(id=pk)
     post_images = post.post_images.all()
     first_image = post_images[0].image.url
     comments = Comment.objects.filter(post=post.id)
-    print(comments)
-    text = request.POST.get('text')
     if request.method == 'POST':
+        text = request.POST.get('text')
         comment = Comment.objects.create(owner=request.user, post=post, comment=text)
     context = {
         'first_image': first_image,
@@ -201,10 +162,16 @@ def details(request,pk):
         'post': post,
         'comments' : comments,
     }
-
     return render(request, 'socials/post_detail.html',context)
 
 
+def Productdetails(request,pk):
+    product = Product.objects.get(id=pk)
+    context = {
+        'product': product
+    }
+
+    return render(request, 'socials/productdetail.html',context)
 
 
 

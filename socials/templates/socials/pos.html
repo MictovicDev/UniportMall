@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Grid</title>
+  <style>
+    .image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    }
+
+    .image-grid img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    }
+
+    @media (max-width: 768px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    }
+
+    @media (max-width: 480px) {
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+<body>
+  <div class="image-grid">
+    <img src="image1.jpg" alt="Image 1">
+    <img src="image1.jpg" alt="Image 1">
+    <img src="image1.jpg" alt="Image 1">
+    <img src="image1.jpg" alt="Image 1">
+    
+    <!-- Add more grid items for additional images -->
+  </div>
+</body>
+</html>
