@@ -120,7 +120,7 @@ class PostView(View):
         context = {
             'posts' : posts
         }
-        if request.method = AjaxPost
+        
         
         return render(request,'socials/home.html',context)
 
