@@ -4,7 +4,7 @@
   <head>
     
     <meta charset="UTF-8">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>MictovicMall</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="{% static 'css/comment.css'%}" rel="stylesheet" type="text/css" />
@@ -110,9 +110,9 @@ align-items: center;
 }
 
 .like-button, .comment-button, .share-button {
-background-color: #f2f2f2;
+background-color: #222d32;
 border: none;
-color: #606770;
+color: #fff;
 padding: 8px 16px;
 text-align: center;
 text-decoration: none;
@@ -133,12 +133,12 @@ margin-right: 5px;
 }
 
 .like-button {
-background-color: #4267B2;
+background-color: #222d32;
 color: #fff;
 }
 
 .like-button:hover {
-background-color: #385898;
+background-color: #222d32;
 }
 
 .comment-button i {
@@ -196,7 +196,7 @@ color: #fff;
       
       <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo"><b>Mictovic</b>Devs</a>
+        <a href="index2.html" class="logo"><b>Mictovic</b>Mall</a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
@@ -638,7 +638,7 @@ color: #fff;
           <form id="post-form" name="{{post.id}}" method="post" class="comment-form">
             {%csrf_token%}
             <textarea name="text"  placeholder="Write a comment"></textarea>
-            <button id={{post.id}} type="submit" class="comment-btn">submit</button>
+            <button style="background-color: #222d32;" id={{post.id}} type="submit" class="comment-btn">submit</button>
           </form>   
     </div>
       </a>

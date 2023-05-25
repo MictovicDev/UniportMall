@@ -70,7 +70,7 @@ class Product(models.Model):
     title = models.CharField(max_length=70)
     price = models.IntegerField(default=0)
     image = models.ImageField(upload_to='media/products')
-    post = models.OneToOneField('Post', on_delete=models.CASCADE,related_name='product', blank=True, null=True)
+    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='product', blank=True, null=True)
     details = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     thumbnail = models.FileField(upload_to='media/product-thumbnails', blank=True)

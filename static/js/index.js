@@ -9,7 +9,6 @@ postform.forEach(form=>{
     const id =  e.target.name;
     const text = form.children[1].value
     console.log(e)
-    e.preventDefault()
     const Form = new FormData(form)
     console.log('submitted')
     const d_body = {'form':Form, 'id':id, 'text':text}
