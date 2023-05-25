@@ -634,7 +634,6 @@ color: #fff;
           <a href="{%url 'postdetails' post.id %}"><button type="comment"  id={{post.id}} class="comment-button"><i class="far fa-comment-alt"></i><span class="comment-count">{{post.comment.count}}</span> Comments</button></a>
           {%endif%}
           <a href="{%url 'productdetails' post.product.id %}"><button id="{{post.id}}" class="share-button"><i class="fa fa-dashboard" ></i>View Product</button></a>
-          <a><button id="{{post.id}}" class="share-button"><i class="fa fa-dashboard" ></i>Share</button></a> 
         </div>
           <form id="post-form" name="{{post.id}}" method="post" class="comment-form">
             {%csrf_token%}
