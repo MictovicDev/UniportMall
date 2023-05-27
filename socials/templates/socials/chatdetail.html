@@ -76,7 +76,7 @@
             {{message.body}}
           </div><!-- /.direct-chat-text -->
         </div><!-- /.item -->
-      {%elif request.user != message.owner.email%}
+      {%else%}
         <div class="direct-chat-msg right">
           <div class='direct-chat-info clearfix'>
             <span class='direct-chat-name pull-right'></span>
