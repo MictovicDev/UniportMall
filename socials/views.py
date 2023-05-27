@@ -93,6 +93,15 @@ def check(request):
     return page
 
 
+# def PostView(request):
+#     posts = Post.objects.all()
+#     context = {
+#         'posts' : posts
+#     }
+#     if request.method == 'POST':
+#          data = json.loads(request.body)
+#          print(data)
+#     return render(request,'socials/home.html',context)
 
 
 
@@ -100,30 +109,39 @@ def check(request):
 
 class PostView(View):
     def get(self, request):
+        print(request.user.id)
         posts = Post.objects.all()
         context = {
             'posts' : posts
         }
-    
         return render(request, 'socials/home.html',context)
     
     def post(self, request):
         posts = Post.objects.all()
-        data = json.loads(request.body)
-        id = data.get('id')
-        post = Post.objects.get(id=id)
-        text = data.get('text')
-        comment = Comment.objects.create(post=post, 
-        owner=request.user,
-        comment=text)
-        comment.save()
-        context = {
-            'posts' : posts
-        }
+        try:
+            data = json.loads(request.body)
+            id = data.get('id')
+            text = data.get('text')
+            post = Post.objects.get(id=id)
+            comment = Comment.objects.create(post=post, 
+            owner=request.user,
+            comment=text)
+            comment.save()
+            context = {
+                'posts' : posts
+            }
+        except:
+            context = {
+                'posts' : posts
+            }
+        return redirect('home')
         
         
-        return render(request,'socials/home.html',context)
 
+       
+        
+        
+        
 
 
 
@@ -184,7 +202,18 @@ def uploadproduct(request):
 def store(request, pk):
     return render(request, 'socials/store.html')
 
-
-
 def chat(request):
-    return render(request, 'socials/chat.html')
+    chats = Chat.objects.filter(owner=request.user)
+    context = {
+        'chats': chats
+    }
+    return render(request,'socials/chat.html',context)
+
+
+def chatdetail(request,pk):
+    print(request.user)
+    chat = Chat.objects.get(owner=request.user, receiver=pk)
+    context = {
+        'chat': chat
+    }
+    return render(request, 'socials/chatdetail.html',context)

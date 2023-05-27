@@ -4,7 +4,7 @@
   <head>
     
     <meta charset="UTF-8">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>Mictovic | Mall</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="{% static 'css/comment.css'%}" rel="stylesheet" type="text/css" />
@@ -59,7 +59,7 @@
       
       <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo"><b>Mictovic</b>Devs</a>
+        <a href="index2.html" class="logo"><b>Mictovic</b>Mall</a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
@@ -493,16 +493,17 @@
   
         <div class="product-center container">
         {%for product in products%}
+        <a href="{%url 'productdetails' product.id %}">
           <div class="product-item">
             <div class="overlay">
-              <a href="productDetails.html" class="product-thumb">
+              <a href="{%url 'productdetails' product.id %}" class="product-thumb">
                 <img src="{{product.image.url}}" alt="image" />
               </a>
               <!-- <span class="discount">40%</span> -->
             </div>
             <div class="product-info">
-              <a href="productDetails.html">{{product.title}}</a>
-              <h4>£{{product.price}}</h4>
+              <a href="{%url 'productdetails' product.id %}">{{product.title}}</a>
+              <a href="{%url 'productdetails' product.id %}"><h4>£{{product.price}}</h4></a>
             </div>
             <ul class="icons">
               <li><i class="bx bx-heart"></i></li>
@@ -510,6 +511,8 @@
               <li><i class="bx bx-cart"></i></li>
             </ul>
           </div>
+        </a>
+          
           {%endfor%}
         </div>
         

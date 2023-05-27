@@ -6,17 +6,15 @@ const likelist = document.querySelectorAll('.like-button')
 
 postform.forEach(form=>{
   form.addEventListener("submit", (e)=>{
-    const id =  e.target.name;
-    const text = form.children[1].value
-    console.log(e)
-    const Form = new FormData(form)
-    console.log('submitted')
-    const d_body = {'form':Form, 'id':id, 'text':text}
-    fetch(" ", {
+    let id =  e.target.name;
+    let text = form.children[1].value;
+    let Form = new FormData(form);
+
+    fetch("", {
         method: "POST",
-        body: JSON.stringify(d_body),
-       
+        body: JSON.stringify({"form":Form,"id":id,"text":text}),
     })
+    
   })
 })
 
@@ -40,6 +38,7 @@ function inc_like(id){
        .then(data=>{
         console.log(data.likes)
         if(data.likes <=1){
+          console.log(likes.innerHTML)
           likes.innerHTML = `<i class="far fa-thumbs-up"></i><span class="like-count">${data.likes}</span> Like`
         }
         else{
@@ -64,6 +63,8 @@ form.addEventListener("submit", (e)=>{
     })
 
 })
+
+
 
 
 

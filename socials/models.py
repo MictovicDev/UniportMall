@@ -43,7 +43,7 @@ class Like(models.Model):
 
 class PostImage(models.Model):
     image = models.ImageField(upload_to='media/post-images')
-    post = models.ForeignKey('Post', on_delete=models.CASCADE,related_name='post_images', blank=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='post_images', blank=True)
     uploaded_time = models.DateTimeField(auto_now_add=True)
     thumbnail = models.FileField(upload_to='media/product-thumbnails', blank=True)
 
@@ -57,12 +57,26 @@ class Message(models.Model):
     seen = models.BooleanField(default=False)
     time = models.DateTimeField(auto_now_add=True)
 
-    
+
     class Meta:
         ordering = ['-time']
 
     def __str__(self):
         return self.body[0:20]
+
+class Chat(models.Model):
+    messages = models.ManyToManyField(Message,related_name='message')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(MyUser, on_delete=models.CASCADE,related_name='chat_owner')
+    receiver = models.ForeignKey(MyUser, on_delete=models.CASCADE,related_name='chat_receiver')
+
+    class Meta:
+        ordering = ['-timestamp']
+
+    def __str__(self):
+        return self.owner.username
+    
+    
 
 
 class Product(models.Model):
@@ -70,7 +84,7 @@ class Product(models.Model):
     title = models.CharField(max_length=70)
     price = models.IntegerField(default=0)
     image = models.ImageField(upload_to='media/products')
-    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='product', blank=True, null=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='product', blank=True, null=True)
     details = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     thumbnail = models.FileField(upload_to='media/product-thumbnails', blank=True)

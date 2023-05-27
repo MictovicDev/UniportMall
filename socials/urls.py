@@ -14,6 +14,7 @@ urlpatterns = [
     path('post/<int:pk>/', views.postdetails, name='postdetails'),
     path('product/<int:pk>/', views.Productdetails, name='productdetails'),
     path('chat', views.chat,name='chat'),
+    path('chat/<int:pk>', views.chatdetail,name='chatdetail'),
     path('store', views.store, name='store'),
     # path('upload', views.uploadproduct, name='upload'),
     path('', views.ProductView.as_view(), name='market'),

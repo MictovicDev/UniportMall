@@ -6,18 +6,25 @@ class PostImageInLine(admin.TabularInline):
     model = PostImage
 
 
-class PostCommentInline(admin.TabularInline):
+class PostCommentInLine(admin.TabularInline):
     model = Comment
 
 class PostProductInLine(admin.TabularInline):
     model = Product
 
+class ChatMessageInLine(admin.TabularInline):
+    model = Message
+
 class PostAdmin(admin.ModelAdmin):
-    inlines = [PostImageInLine, PostCommentInline,PostProductInLine]
+    inlines = [PostImageInLine, PostCommentInLine,PostProductInLine]
+
+class ChatAdmin(admin.ModelAdmin):
+    inlines = [ChatMessageInLine,]
 
 
 
 admin.site.register(Post, PostAdmin)
+admin.site.register(Chat)
 admin.site.register(Like)
 admin.site.register(Message)
 admin.site.register(Order)
