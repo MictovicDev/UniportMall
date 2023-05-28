@@ -25,15 +25,12 @@ AUTH_USER_MODEL = 'authentication.MyUser'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-print(SECRET_KEY)
 SECRET_KEY = 'django-insecure-(oawz_u7jb-nih7og2v&rd7=#ag#*&if1xcs@7t_2tmk-1^&#y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# public_url = ngrok.connect(5000).public_url
 
-# print(public_url)
 
 ALLOWED_HOSTS = ['*']
 
@@ -141,26 +138,26 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SEC
 print(os.environ.get('DBNAME'))
 
 print(os.environ.get('DB_USER'))
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'dTE5ER9IWFPGDRk4wG5l',
-        'HOST': 'containers-us-west-53.railway.app',
-        'PORT': '6789'
-    }
-}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'mictovic',
+#         'NAME': 'railway',
 #         'USER': 'postgres',
-#         'PASSWORD': 'awa',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432'
+#         'PASSWORD': 'dTE5ER9IWFPGDRk4wG5l',
+#         'HOST': 'containers-us-west-53.railway.app',
+#         'PORT': '6789'
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mictovic',
+        'USER': 'postgres',
+        'PASSWORD': 'awa',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
+    }
+}
 
 CHANNEL_LAYERS = {
     'default':{
