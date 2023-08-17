@@ -17,7 +17,7 @@ Django==3.2.20
 idna==3.4
 # kombu==5.3.1
 oauthlib==3.2.2
-Pillow==10.0.0
+Pillow== 9.5.0
 prompt-toolkit==3.0.39
 pycparser==2.21
 PyJWT==2.8.0
