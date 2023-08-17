@@ -26,10 +26,10 @@ AUTH_USER_MODEL = 'authentication.MyUser'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-SECRET_KEY = 'django-insecure-(oawz_u7jb-nih7og2v&rd7=#ag#*&if1xcs@7t_2tmk-1^&#y'
+# SECRET_KEY = 'django-insecure-(oawz_u7jb-nih7og2v&rd7=#ag#*&if1xcs@7t_2tmk-1^&#y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 
 
