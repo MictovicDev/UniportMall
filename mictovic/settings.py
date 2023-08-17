@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 from django.conf import settings
 # from pyngrok import ngrok
@@ -29,6 +30,7 @@ SECRET_KEY = 'django-insecure-(oawz_u7jb-nih7og2v&rd7=#ag#*&if1xcs@7t_2tmk-1^&#y
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 
 
 
@@ -119,6 +121,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+DATABASES["default"] = dj_database_url.parse('postgres://mydb_fs5w_user:igPlWoGZhYIGceDcfNtb4zKbK4Or5St1@dpg-cjeidaunk9qs73bsv96g-a.oregon-postgres.render.com/mydb_fs5w')
 SITE_URL = 'example.com:8000/'
 
 
