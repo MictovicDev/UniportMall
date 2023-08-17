@@ -13,7 +13,7 @@ click-repl==0.3.0
 colorama==0.4.6
 cryptography==41.0.3
 defusedxml==0.7.1
-Django==4.2.3
+Django==3.2.20
 idna==3.4
 kombu==5.3.1
 oauthlib==3.2.2
