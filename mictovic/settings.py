@@ -113,12 +113,12 @@ LOGIN_REDIRECT_URL = 'home'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 SITE_URL = 'example.com:8000/'
 
 
@@ -137,17 +137,17 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SEC
 
 print(os.environ.get('DBNAME'))
 
-print(os.environ.get('DB_USER'))
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'dTE5ER9IWFPGDRk4wG5l',
-        'HOST': 'containers-us-west-53.railway.app',
-        'PORT': '6789'
-    }
-}
+# print(os.environ.get('DB_USER'))
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'dTE5ER9IWFPGDRk4wG5l',
+#         'HOST': 'containers-us-west-53.railway.app',
+#         'PORT': '6789'
+#     }
+# }
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
