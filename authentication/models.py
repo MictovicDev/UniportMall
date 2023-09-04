@@ -49,8 +49,13 @@ class MyUser(AbstractBaseUser):
     def is_staff(self):
         return self.is_admin
 
+class ProfilePic(models.Model):
+    image = models.ImageField(upload_to='media/post-images',default='media/media/post-images/Group_184.png')
+
+
 
 class Profile(models.Model):
+    profile_pics = models.OneToOneField(ProfilePic, on_delete=models.CASCADE, related_name='profilepics',null=True)
     owner = models.OneToOneField(MyUser, on_delete=models.CASCADE, related_name='profile')
     about = models.CharField(max_length=250, blank=True)
     verification_token = models.CharField(max_length=250, blank=True, null=True)

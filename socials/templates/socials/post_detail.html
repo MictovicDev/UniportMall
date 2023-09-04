@@ -167,9 +167,18 @@
             {%endfor%}
         </div>
             <div id="like" class="button-container">
-                <button onclick="inc_like(id)" id={{post.id}} class="like-button"><i class="far fa-thumbs-up"></i><span class="like-count">{{post.likes}}</span> Like</button>
-                <button type="comment" onclick="comment(id)" id={{post.id}} class="comment-button"><i class="far fa-comment-alt"></i><span class="comment-count">8</span>  Comment</button>
-                <a href="{%url 'productdetails' post.id%}"><button id="{{post.id}}" class="share-button"><i class="fa fa-dashboard" ></i>View Product</button></a>
+                {%if post.like.count <= 1%}
+                <button onclick="postinc_like(id)" id={{post.id}} style="background-color: #222d32;"  onclick="inc_like(id)" id={{post.id}} class="like-button"><i class="far fa-thumbs-up"></i><span class="like-count">{{post.likes}}</span> Like</button>
+                {%else%}
+                <button onclick="postinc_like(id)" id={{post.id}} style="background-color: #222d32; color: #dddddd;" onclick="inc_like(id)" id={{post.id}} class="like-button"><i class="far fa-thumbs-up"></i><span class="like-count">{{post.likes}}</span> Likes</button>
+                {%endif%}
+                {%if post.comment.count <= 1%}
+                <button type="comment" style="background-color: #222d32; color: #dddddd;" id={{post.id}} class="comment-button"><i class="far fa-comment-alt"></i><span class="comment-count">{{post.comment.count}}  Comment</span> </button>
+                {%else%}
+                <button type="comment" style="background-color: #222d32; color: #dddddd;" id={{post.id}} class="comment-button"><i class="far fa-comment-alt"></i><span class="comment-count">{{post.comment.count}}  Comments</span> </button>
+                {%endif%}
+                <a href="{%url 'productdetails' post.product.first.id %}"><button style="background-color: #222d32; color: #dddddd;" id="{{post.id}}" class="share-button"><i class="fa fa-dashboard" ></i>View product</button></a>
+
             </div>
         </div>
         <div class="comment-section">

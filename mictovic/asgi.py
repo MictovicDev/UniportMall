@@ -16,7 +16,7 @@ from socials.routing import ws_urlpatterns
 
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mictovic.settings')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mictovic.settings')
 
 django_asgi_app = get_asgi_application()
 

@@ -21,9 +21,9 @@ from socials.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('authentication.urls')),
+    path('auth/', include('authentication.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),
-    path('home/', include('socials.urls')),
+    path('', include('socials.urls')),
     
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

@@ -4,7 +4,7 @@ from authentication.models import MyUser
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    owner = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    owner = models.ForeignKey(MyUser, related_name='my_owner', on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now_add=True)
     content = models.TextField(null=True)
     likes = models.IntegerField(default=0)
@@ -50,7 +50,18 @@ class PostImage(models.Model):
     class Meta:
         ordering = ['-post']
 
+
+class Chat(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(MyUser, on_delete=models.CASCADE,related_name='chat_owner')
+    receiver = models.ForeignKey(MyUser, on_delete=models.CASCADE,related_name='chat_receiver')
+
+    class Meta:
+        ordering = ['-timestamp']
+
+
 class Message(models.Model):
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE,related_name='message',blank=True,default=14)
     owner = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='owner')
     receiver = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='receiver')
     body = models.TextField()
@@ -64,19 +75,7 @@ class Message(models.Model):
     def __str__(self):
         return self.body[0:20]
 
-class Chat(models.Model):
-    messages = models.ManyToManyField(Message,related_name='message')
-    timestamp = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(MyUser, on_delete=models.CASCADE,related_name='chat_owner')
-    receiver = models.ForeignKey(MyUser, on_delete=models.CASCADE,related_name='chat_receiver')
 
-    class Meta:
-        ordering = ['-timestamp']
-
-    def __str__(self):
-        return self.owner.username
-    
-    
 
 
 class Product(models.Model):

@@ -45,10 +45,10 @@ html {
 body {
     color: #666666;
     font-size: 14px;
-    font-family: Poppins;
-    line-height: 1.80857;
-    font-weight: normal;
-    overflow-x: hidden;
+    font-family: Poppins;  
+    /* line-height: 1.80857;
+    font-weight: normal; 
+    overflow-x: hidden; */
 }
 
 a {
@@ -146,7 +146,7 @@ a {
     outline: none !important;
 }
 
-a,
+ a,
 .btn {
     text-decoration: none !important;
     outline: none !important;
@@ -421,9 +421,9 @@ button {
     background-repeat: no-repeat;
     position: relative;
     margin-top: 35px;
-}
+} 
 
-.image_3::after {
+ .image_3::after {
     content: '';
     position: absolute;
     width: 650px;

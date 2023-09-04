@@ -1,5 +1,8 @@
 # Create your views here.
 from django.shortcuts import render,redirect
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.core import serializers
 from django.http import JsonResponse,HttpResponse
@@ -30,7 +33,8 @@ class AjaxPost(View):
 
 
 
-class ProductView(View):
+class ProductView(LoginRequiredMixin, View):
+    @login_required
     def post(self, request):
         images = request.FILES.getlist('images')
         three_images = images[0:3]
@@ -54,7 +58,7 @@ class ProductView(View):
          post=post)
 
         return redirect('market')
-
+    
     def get(self,request):
         products = Product.objects.all()
         context = {
@@ -67,7 +71,7 @@ class ProductView(View):
         
 
 
-class LivePost(View):
+class LivePost(LoginRequiredMixin, View):
     def post(self, request):
         data = json.loads(request.body)
         print(data)
@@ -107,14 +111,19 @@ def check(request):
 
 
 
-class PostView(View):
+class PostView(LoginRequiredMixin, View):
     def get(self, request):
-        print(request.user.id)
+        try:
+          pics = request.user.profile.profile_pics.image.url
+        except AttributeError:
+            pics = ''
         posts = Post.objects.all()
         context = {
-            'posts' : posts
+            'posts' : posts,
+            'pics': pics
         }
         return render(request, 'socials/home.html',context)
+    
     
     def post(self, request):
         posts = Post.objects.all()
@@ -137,17 +146,15 @@ class PostView(View):
         return redirect('home')
         
         
-
+def request_user(request):
+    return JsonResponse({'user': request.user.id})
        
         
         
-        
 
-
-
-class IncrementLikeView(View):
+class IncrementLikeView(LoginRequiredMixin, View):
     #handling post request for the like views
-    def post(self, request):
+    def post(self, request,*args ,**kwargs):
         #converting the request.body from bytes to python native data types
         data = json.loads(request.body)
         post_id = data.get('id')
@@ -165,7 +172,7 @@ class IncrementLikeView(View):
         return JsonResponse({'content': 'like added succesfully','likes': post.likes}, status=200)
 
 
-
+@login_required
 def postdetails(request,pk):
     post = Post.objects.get(id=pk)
     post_images = post.post_images.all()
@@ -182,7 +189,7 @@ def postdetails(request,pk):
     }
     return render(request, 'socials/post_detail.html',context)
 
-
+@login_required
 def Productdetails(request,pk):
     product = Product.objects.get(id=pk)
     context = {
@@ -202,6 +209,7 @@ def uploadproduct(request):
 def store(request, pk):
     return render(request, 'socials/store.html')
 
+@login_required
 def chat(request):
     chats = Chat.objects.filter(owner=request.user)
     context = {
@@ -210,10 +218,28 @@ def chat(request):
     return render(request,'socials/chat.html',context)
 
 
-def chatdetail(request,pk):
-    print(request.user)
-    chat = Chat.objects.get(owner=request.user, receiver=pk)
+@login_required
+def chatdetail(request, pk):
+    post = Post.objects.get(id=pk)
+    owner = post.owner
+    sender = request.user
+    print(owner)
+    print(sender)
+    try:
+       chat = Chat.objects.get(owner=sender, receiver=owner)
+    except:
+        chat = Chat.objects.create(owner=sender, receiver=owner)
     context = {
-        'chat': chat
+        'chat': chat,
+        'owner': owner.id
     }
     return render(request, 'socials/chatdetail.html',context)
+
+
+# @login_required
+# def chatdetail(request,pk):
+#     chat = Chat.objects.get(owner=request.user, receiver=pk)
+#     context = {
+#         'chat': chat
+#     }
+#     return render(request, 'socials/chatdetail.html',context)

@@ -51,7 +51,7 @@
         <link rel="stylesoeet" href="{%static 'css/owl.theme.default.min.css'%}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 </head>
-    <div class="box box-success">
+    <div  class="box box-success">
       <div class="box-header">
         <i class="fa fa-comments-o"></i>
         <h3 class="box-title">Chat with {{chat.receiver.username}}</h3>
@@ -62,17 +62,17 @@
           </div>
         </div>
       </div>
-      <div class="box-body chat" id="chat-box">
+      <div id="msg-body" class="box-body chat" id="chat-box">
         <!-- chat item -->
       {%for message in chat.messages.all%}
-      {%if request.user == message.owner.email%}
-        <div class="direct-chat-msg">
+      {%if request.user.id == message.owner.id%}
+        <div  class="direct-chat-msg">
           <div class='direct-chat-info clearfix'>
             <span class='direct-chat-name pull-left'></span>
             <span class='direct-chat-timestamp pull-right'>{{message.time}}</span>
           </div><!-- /.direct-chat-info -->
           <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image" /><!-- /.direct-chat-img -->
-          <div class="direct-chat-text">
+          <div id="msg-body" class="direct-chat-text">
             {{message.body}}
           </div><!-- /.direct-chat-text -->
         </div><!-- /.item -->
@@ -93,12 +93,87 @@
         
       </div><!-- /.chat -->
       <div class="box-footer">
+        
         <div class="input-group">
-          <input class="form-control" placeholder="Type message..."/>
-          <div class="input-group-btn">
-            <button class="btn btn-success"><i class="fa fa-plus"></i></button>
-          </div>
+            <input  id="msg-form"class="form-control" placeholder="Type message..."/>
+            <div class="input-group-btn">
+              <button id="btn" class="btn btn-success"><i class="fa fa-plus"></i></button>
+            </div>
         </div>
       </div>
     </div><!-- /.box (chat box) -->
+<!-- 
+<script src="{% static 'js/chat.js' %}"></script> -->
 
+
+
+{{owner|json_script:"pk"}}
+
+<script>
+  const input_message = document.getElementById('msg-form')
+  const msg = document.getElementById('msg-body')
+  const submit_button = document.getElementById('btn')
+  const room = JSON.parse(document.getElementById('pk').textContent)
+   console.log(msg)
+   let loc = window.location.host
+   console.log(loc)
+   var socket = new WebSocket('ws://'+loc+ '/ws/chat/'+ room+'/');
+
+  socket.onopen = async function(e){
+    fetch('user')
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(data)
+  })
+    submit_button.addEventListener('click',(e)=>{
+    e.preventDefault
+    let message = input_message.value
+    console.log(message)
+
+    let data = {
+        'message': message
+    }
+    data = JSON.stringify(data)
+    socket.send(data)
+    input_message.value
+
+  })
+    }
+
+  
+  
+  socket.onmessage = async function(e){
+    fetch('user')
+    .then(res=>res.json())
+    .then(user=>{
+      console.log(user['user'])
+      const request_user = user['user']
+      const data = JSON.parse(e.data)
+      messages = data['message']
+      messages.forEach(message=>{
+        const messg = message['owner']
+        const request_user = user['user']
+        console.log(messg==request_user)
+      if(request_user == messg){
+          msg.insertAdjacentHTML("afterend",
+          `
+          <div  class="direct-chat-msg">
+          <div class='direct-chat-info clearfix'>
+            <span class='direct-chat-name pull-left'></span>
+            <span class='direct-chat-timestamp pull-right'></span>
+          </div><!-- /.direct-chat-info -->
+          <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image" /><!-- /.direct-chat-img -->
+          <div id="msg-body" class="direct-chat-text">
+            ${message.bodys}
+          </div><!-- /.direct-chat-text -->
+         </div>
+          `)
+      }})
+       
+    })
+    }
+
+    // receiver_id = data['receiver_id']
+    // sender_id = data['sender_id']
+  
+</script>

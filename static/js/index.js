@@ -18,11 +18,31 @@ postform.forEach(form=>{
   })
 })
 
+function postinc_like(id){
+  console.log(id)
+  likes = document.getElementById(id)
+  console.log(likes)
+  const mybody = {'id': id}
+  fetch('inc-like',{
+    method: "POST",
+    body: JSON.stringify(mybody)
+   
+  })
+  .then(res=>res.json())
+  .then(data=>{
+   console.log(data.likes)
+   if(data.likes <=1){
+     console.log(likes.innerHTML)
+     likes.innerHTML = `<i class="far fa-thumbs-up"></i><span class="like-count">${data.likes}</span> Like`
+   }
+   else{
+     likes.innerHTML = `<i class="far fa-thumbs-up"></i><span class="like-count">${data.likes}</span> Likes`
+   }
 
     
-
-
-
+  })
+}
+    
 
 function inc_like(id){
        console.log(id)
