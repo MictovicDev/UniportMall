@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 SECRET_KEY = 'django-insecure-(oawz_u7jb-nih7og2v&rd7=#ag#*&if1xcs@7t_2tmk-1^&#y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #DEBUG = os.environ.get('DEBUG')
 
@@ -42,7 +42,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
+    # 'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'django_extensions',
     # 'channels',
     'socials',
-    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -244,16 +243,26 @@ else:
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
+# STATICFILES_DIRS = [
+# BASE_DIR / 'static',
+# ]
+
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STATIC_URL = '/static/'
+
+# Directories where Django will search for additional static files
 STATICFILES_DIRS = [
-BASE_DIR / 'static',
+    BASE_DIR / "static",  # This can be any other folder but NOT STATIC_ROOT
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# This is the directory where collectstatic will gather all the static files for production
+STATIC_ROOT = BASE_DIR / "staticfiles" 
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Default primary key field type
